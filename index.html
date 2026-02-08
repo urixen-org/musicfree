@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#0c0f14" />
+        <title>Musicfree</title>
+        <link rel="manifest" href="manifest.webmanifest" />
+        <link rel="stylesheet" href="styles.css" />
+        <link rel="icon" href="icon.svg" />
+    </head>
+    <body>
+        <div class="bg"></div>
+        <header class="top">
+            <div>
+                <div class="brand">Musicfree</div>
+                <div class="sub">Offline-first, minimal player</div>
+            </div>
+            <div class="status" id="netStatus">Offline ready</div>
+        </header>
+
+        <main class="layout">
+            <section class="player" aria-label="Player">
+                <div class="now">
+                    <div class="now-label">Now playing</div>
+                    <div class="now-title" id="nowTitle">Select a track</div>
+                    <div class="now-meta" id="nowMeta">—</div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn" id="prevBtn" title="Previous">
+                        Prev
+                    </button>
+                    <button class="btn primary" id="playBtn" title="Play/Pause">
+                        Play
+                    </button>
+                    <button class="btn" id="nextBtn" title="Next">Next</button>
+                    <button class="btn" id="shuffleBtn" title="Shuffle">
+                        Shuffle
+                    </button>
+                    <button class="btn" id="loopBtn" title="Loop">
+                        Loop: Off
+                    </button>
+                </div>
+
+                <div class="scrub">
+                    <span id="curTime">0:00</span>
+                    <progress id="seek" value="0" max="0"></progress>
+                    <span id="durTime">0:00</span>
+                </div>
+
+                <div class="volume">
+                    <span>Vol</span>
+                    <progress id="vol" value="80" max="100"></progress>
+                </div>
+
+                <div class="playlists">
+                    <div class="playlist-row">
+                        <label for="playlistSelect">Playlist</label>
+                        <select id="playlistSelect"></select>
+                        <button class="ghost" id="playlistViewBtn">View</button>
+                        <button class="ghost" id="playlistClearBtn">All</button>
+                    </div>
+                    <div class="playlist-row">
+                        <input
+                            id="playlistName"
+                            type="text"
+                            placeholder="New playlist name"
+                        />
+                        <button class="ghost" id="playlistCreateBtn">
+                            Create
+                        </button>
+                    </div>
+                </div>
+
+                <div class="queue">
+                    <div class="queue-head">Up Next</div>
+                    <div id="queueList" class="queue-list"></div>
+                    <div class="queue-actions">
+                        <button class="ghost mini" id="queueClearBtn">
+                            Clear Queue
+                        </button>
+                    </div>
+                </div>
+
+                <div class="import">
+                    <div class="import-head">Import URL</div>
+                    <div class="import-row">
+                        <input
+                            id="importUrl"
+                            type="url"
+                            placeholder="https://example.com/track.mp3"
+                        />
+                        <button class="ghost" id="importBtn">Download</button>
+                    </div>
+                    <div class="import-hint" id="importHint">
+                        Direct audio URLs only. Files are saved to server, and
+                        visible to everyone. tip: you can get url of music from
+                        youtube by using ytdlp.online
+                    </div>
+                </div>
+
+                <div class="cache" id="cacheStatus">
+                    Preparing offline cache...
+                </div>
+                <audio id="audio"></audio>
+            </section>
+
+            <section class="library" aria-label="Library">
+                <div class="library-head">
+                    <div>
+                        <div class="title">Library</div>
+                        <div class="hint">
+                            Auto-detected from /musics or local files
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <button class="ghost" id="uploadBtn">Add Local</button>
+                        <button class="ghost" id="refreshBtn">Refresh</button>
+                    </div>
+                </div>
+                <div id="list" class="list" role="list"></div>
+                <div id="empty" class="empty" hidden>
+                    No tracks found. If you are serving with directory listing
+                    disabled, add a musics.json file or enable listing.
+                </div>
+            </section>
+        </main>
+
+        <script defer src="app.js"></script>
+    </body>
+</html>
